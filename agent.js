@@ -108,8 +108,8 @@ async function runAgent(cfg, opts) {
   const token = process.env.GITHUB_TOKEN;
   const outDir = cfg.out, cardsDir = path.join(outDir, 'cards');
   fs.mkdirSync(cardsDir, { recursive: true });
-  fs.mkdirSync('state', { recursive: true });
-  const stateFile = 'state/seen.json';
+  const stateFile = cfg.stateFile || 'state/seen.json';
+  fs.mkdirSync(path.dirname(stateFile), { recursive: true });
   const state = loadState(stateFile);
   const targets = await discover(cfg, token);
   console.log('[agent] auditing ' + targets.length + ' skills');
@@ -122,7 +122,7 @@ async function runAgent(cfg, opts) {
       const h = sha1(md);
       let res;
       if (state[t.id] && state[t.id].hash === h) res = state[t.id].res;
-      else { res = auditMarkdown(md, '.'); res.findings = res.findings; state[t.id] = { hash: h, res: { ...res, findings: undefined, stats: { ...res.stats, urls: [] } } }; }
+      else { res = auditMarkdown(md, '.'); state[t.id] = { hash: h, res }; }
       rows.push({ id: t.id, score: res.score, grade: res.grade, critical: res.findings.some(f => !f.pass && f.severity === 'critical') });
       fs.writeFileSync(path.join(cardsDir, sanitizeId(t.id) + '.html'), toHtml(res));
     } catch (e) { console.error('[audit] ' + t.id + ': ' + e.message); }

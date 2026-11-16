@@ -12,7 +12,7 @@ test('sanitizeId keeps urls filesystem-safe', () => {
 
 test('agent run on local source produces sorted leaderboard and cards', async () => {
   const out = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-out-'));
-  const cfg = { top: 10, out, publish: false, notify: false, sources: [{ type: 'local', dir: path.join(__dirname, '..', 'examples') }] };
+  const cfg = { top: 10, out, stateFile: path.join(out, 'state.json'), publish: false, notify: false, sources: [{ type: 'local', dir: path.join(__dirname, '..', 'examples') }] };
   const rows = await runAgent(cfg, {});
   assert.equal(rows.length, 2);
   assert.ok(rows[0].score >= rows[1].score, 'sorted desc');
