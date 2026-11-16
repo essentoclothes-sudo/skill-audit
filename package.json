@@ -1,0 +1,44 @@
+{
+  "name": "skill-audit",
+  "version": "0.1.0",
+  "description": "Lighthouse-style quality & security audits for agent skills (SKILL.md): prompt-injection detection, structure scoring, HTML report card + badge. Zero deps.",
+  "bin": {
+    "skill-audit": "./bin/cli.js"
+  },
+  "main": "./src/audit.js",
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "keywords": [
+    "agent",
+    "skills",
+    "audit",
+    "security",
+    "prompt-injection",
+    "claude",
+    "clawhub",
+    "openclaw",
+    "skills.sh",
+    "quality",
+    "lint",
+    "report-card"
+  ],
+  "license": "MIT",
+  "author": "ORION agent for Annil",
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "src",
+    "bin",
+    "SKILL.md",
+    "README.md",
+    "LICENSE",
+    "examples"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/essentoclothes-sudo/skill-audit.git"
+  },
+  "homepage": "https://github.com/essentoclothes-sudo/skill-audit#readme"
+}
