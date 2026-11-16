@@ -1,13 +1,14 @@
 {
   "name": "skill-audit",
   "version": "0.1.0",
-  "description": "Lighthouse-style quality & security audits for agent skills (SKILL.md): prompt-injection detection, structure scoring, HTML report card + badge. Zero deps.",
+  "description": "Autonomous agent + auditor for agent skills: discovers SKILL.md files, flags prompt-injection & secrets, scores them and publishes a leaderboard. Zero deps.",
   "bin": {
     "skill-audit": "./bin/cli.js"
   },
   "main": "./src/audit.js",
   "scripts": {
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "agent": "node agent.js --once"
   },
   "keywords": [
     "agent",
@@ -21,7 +22,9 @@
     "skills.sh",
     "quality",
     "lint",
-    "report-card"
+    "report-card",
+    "leaderboard",
+    "autonomous-agent"
   ],
   "license": "MIT",
   "author": "ORION agent for Annil",
@@ -31,7 +34,10 @@
   "files": [
     "src",
     "bin",
+    "agent.js",
+    "config.example.json",
     "SKILL.md",
+    "AGENTS.md",
     "README.md",
     "LICENSE",
     "examples"

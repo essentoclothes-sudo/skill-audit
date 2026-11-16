@@ -44,8 +44,11 @@ function grade(score) {
 }
 
 function auditFile(file) {
-  const md = fs.readFileSync(file, 'utf8');
-  const dir = path.dirname(file);
+  return auditMarkdown(fs.readFileSync(file, 'utf8'), path.dirname(file));
+}
+
+function auditMarkdown(md, dir) {
+  dir = dir || '.';
   const { fm, body } = parseFrontmatter(md);
   const findings = [];
   const blocks = codeBlocks(body);
@@ -103,4 +106,4 @@ function findSkillMd(target) {
   return hits[0] || null;
 }
 
-module.exports = { auditFile, findSkillMd, grade };
+module.exports = { auditFile, auditMarkdown, findSkillMd, grade };

@@ -1,0 +1,20 @@
+{
+  "top": 20,
+  "out": "public",
+  "publish": false,
+  "notify": false,
+  "sources": [
+    {
+      "type": "github",
+      "repo": "anthropics/skills"
+    },
+    {
+      "type": "github",
+      "repo": "addyosmani/agent-skills"
+    },
+    {
+      "type": "local",
+      "dir": "./examples"
+    }
+  ]
+}

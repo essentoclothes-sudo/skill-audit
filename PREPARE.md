@@ -1,26 +1,30 @@
 # PREPARADO PARA SUBIR (Annil)
 
-Todo verificado en local: tests, CLI sobre ejemplos buenos/malos, report cards generadas.
+Tests 13/13, agente probado offline (leaderboard + cards generados). Nombre npm 'skill-audit' verificado libre.
 
-## 1. Clonar
+## 1. Clonar y probar
     git clone https://github.com/essentoclothes-sudo/skill-audit && cd skill-audit
-
-## 2. Comprobar tú mismo
     npm test
-    node bin/cli.js examples/sample-good --out /tmp/reports
-    node bin/cli.js examples/sample-bad   # debe salir con código 1 (críticos)
+    node agent.js --config config.example.json --no-publish   # offline, 4 skills locales
+    node agent.js --top 10 --no-publish                        # online: anthropics + addyosmani
 
-## 3. Publicar en npm (nombre verificado libre: skill-audit)
+## 2. Publicar npm
     npm publish
-    # si pide 2FA, usa el OTP; si el nombre chocara, cambia "name" a @josealbertomaquina/skill-audit y publica con --access public
 
-## 4. Publicar como skill en ClawHub (a partir del 19/11 la cuenta cumple 14 días)
+## 3. Publicar en ClawHub (desde el 19/11 la cuenta cumple 14 días)
     clawhub skill publish .
-    # login ya configurado en la Pi (token guardado); si expira, pedirte otro clic de device-flow
 
-## 5. (Opcional) Demo pública de report cards
-    cp /tmp/reports/*.html docs/  →  GitHub Pages → enlace en el README/LinkedIn
+## 4. Leaderboard vivo (recomendado para el post de LinkedIn)
+    export GITHUB_TOKEN=<PAT con repo> PUBLISH_REPO=essentoclothes-sudo/skill-audit
+    node agent.js --top 20          # publica a gh-pages
+    # activar Pages (una vez): curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+    #   https://api.github.com/repos/essentoclothes-sudo/skill-audit/pages \
+    #   -d '{"source":{"branch":"gh-pages","path":"/"}}'
+    # → https://essentoclothes-sudo.github.io/skill-audit/
 
-## Tras publicar (yo lo hago si quieres)
-- PR del leaderboard top-50 ClawHub con report cards públicas
-- Post LinkedIn: "mi agente ahora audita skills de otros agentes" + enlace
+## 5. Dejarlo vivo en la Pi (opcional)
+    node agent.js --watch 360 --top 20   # cada 6h, re-audita solo lo cambiado
+
+## Tras publicar (lo hago yo si quieres)
+- Auditar top-50 ClawHub + PR con el leaderboard
+- Post LinkedIn: "mi agente ahora audita las skills de otros agentes" + enlace al leaderboard
